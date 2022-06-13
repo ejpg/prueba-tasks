@@ -1,0 +1,57 @@
+<h1>Tasks list</h1>
+
+<div class="tasks">
+  <div class="tasks__incomplete-wrapper">
+    <h3>Incomplete tasks</h3>
+
+    <input [(ngModel)]="name" type="text" class="tasks__name-input" />
+    <button (click)="addTask()">Add</button>
+
+    <div>
+      <ul>
+        <li *ngFor="let task of tasks.incomplete">
+          <div *ngIf="task.editing">
+            <input
+              [(ngModel)]="task.name"
+              type="text"
+              class="tasks__name-input"
+            />
+            <button (click)="editTaskName(task)">Save</button>
+          </div>
+          <div *ngIf="!task.editing" class="tasks__name-wrapper">
+            <span class="tasks__name">{{ task.name }}</span>
+            <span
+              title="Edit"
+              class="tasks__edit-button"
+              (click)="task.editing = true"
+              >✎</span
+            >
+            <span
+              title="Complete"
+              class="tasks__complete-button"
+              (click)="completeTask(task._id)"
+              >✓</span
+            >
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <h3>Completed tasks</h3>
+
+    <div>
+      <ul>
+        <li *ngFor="let task of tasks.complete" class="tasks__name-wrapper">
+          <span class="tasks__name">{{ task.name }}</span>
+          <span
+            title="Complete"
+            class="tasks__remove-button"
+            (click)="removeTask(task._id)"
+            >X</span
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
